@@ -6,16 +6,28 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author Shxnna
  */
 @Entity
+@Table(name = "Person")
+@NamedQueries(
+{
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Personp WHERE p.id = :id")
+})
+
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,6 +36,9 @@ public class Person implements Serializable {
     private Long id;
     private String fName;
     private String lName;
+    
+    @ManyToMany
+    private List<Hobby> hobby;
 
     public String getfName() {
         return fName;
