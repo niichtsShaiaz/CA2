@@ -5,11 +5,13 @@
  */
 package Facade;
 
+import Entities.CityInfo;
 import Entities.Person;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -21,36 +23,49 @@ public class Facademan {
     
     public List<Person> getAllPerons()
     {
+        List<Person> allPersons = null;
         EntityManager em = emf.createEntityManager();
-        em.close();
-        return null;
+        Query q = em.createQuery("SELECT p FROM Person p");
+        allPersons = (List<Person>)q.getResultList();
+        return allPersons;
     }
     
     public Person getPersonById(int id)
     {
+        Person person = null;
         EntityManager em = emf.createEntityManager();
-        em.close();
-        return null;
+        Query q = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+        q.setParameter("id", id);
+        person = (Person)q.getSingleResult();
+        return person;
     }
     
-    public List<Person> getAllPersonsContactInfo()
-    {
-        EntityManager em = emf.createEntityManager();
-        em.close();
-        return null;
-    }
-    
-    public Person getAllPersonsContactInfoById(int id)
-    {
-        EntityManager em = emf.createEntityManager();
-        em.close();
-        return null;
-    }
     
     public void createPerson(Person person)
     {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction();
-        em.close();
+        em.getTransaction().begin();
+        em.persist(person);
+        em.getTransaction().commit();
+    }
+    
+    public List<CityInfo> getAllCityInfo(){
+        List<CityInfo> cityInfo = null;
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT c FROM CityInfo c");
+        cityInfo = (List<CityInfo>)q.getResultList();
+        return cityInfo;
+    }
+
+    public Object getAllPersonsContactInfo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getAllPersonsContactInfoById(int id) {
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+        q.setParameter("id", id);
+        Person person = (Person)q.getSingleResult();
+        return null;
     }
 }
