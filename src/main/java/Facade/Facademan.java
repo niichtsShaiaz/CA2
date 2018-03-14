@@ -22,34 +22,35 @@ public class Facademan {
     public List<Person> getAllPerons()
     {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createNamedQuery("Person.findAll", Person.class);
-        List<Person> persons = query.getResultList();
         em.close();
-        return persons;
+        return null;
     }
     
     public Person getPersonById(int id)
     {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createNamedQuery("Person.findById", Person.class);
-        query.setParameter("id", id);
-        Person person = query.getSingleResult();
         em.close();
-        return person;
+        return null;
     }
     
     public List<Person> getAllPersonsContactInfo()
     {
+        EntityManager em = emf.createEntityManager();
+        em.close();
         return null;
     }
     
     public Person getAllPersonsContactInfoById(int id)
     {
+        EntityManager em = emf.createEntityManager();
+        em.close();
         return null;
     }
     
     public void createPerson(Person person)
     {
-        
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction();
+        em.close();
     }
 }

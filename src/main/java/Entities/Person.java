@@ -12,8 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,24 +23,23 @@ import javax.persistence.Table;
  * @author Shxnna
  */
 @Entity
-@Table(name = "Person")
-@NamedQueries(
-{
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Personp WHERE p.id = :id")
-})
 
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fName;
     private String lName;
+    private String email;
     
     @ManyToMany
-    private List<Hobby> hobby;
+    private List<Hobby> hobbys;
+    @ManyToOne
+    private Address address;
+    @OneToMany(mappedBy = "person")
+    private List<Phone> phones;
 
     public String getfName() {
         return fName;
