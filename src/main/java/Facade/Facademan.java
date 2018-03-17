@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
  * @author Shxnna
  */
 public class Facademan {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_CA2_war_1.0-SNAPSHOTPU");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2");
     
     public List<Person> getAllPerons()
     {

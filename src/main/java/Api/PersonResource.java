@@ -7,8 +7,11 @@ package Api;
 
 import Entities.Person;
 import Facade.Facademan;
+import JsonMessages.PersonMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -45,7 +48,12 @@ public class PersonResource
     public String getPersonComplete()
     {
         //need validation
-        String persons = gson.toJson(facade.getAllPerons());
+        ArrayList<PersonMessage> messages = new ArrayList<>();
+        List<Person> list = facade.getAllPerons();
+        for(Person p : list){
+            messages.add(new PersonMessage(p));
+        }
+        String persons = gson.toJson(messages);
         return persons;
     }
     

@@ -62,6 +62,41 @@ public class Person implements Serializable {
         this.lName = lName;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setHobbys(List<Hobby> hobbys) {
+        this.hobbys = hobbys;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public List<Hobby> getHobbys() {
+        return hobbys;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+    
+    
+
     public Person() {
     }
 
