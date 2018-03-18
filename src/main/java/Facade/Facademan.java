@@ -66,6 +66,6 @@ public class Facademan {
         Query q = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
         q.setParameter("id", id);
         Person person = (Person)q.getSingleResult();
-        return null;
+        return person;
     }
 }
