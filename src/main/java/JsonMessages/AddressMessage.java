@@ -16,6 +16,7 @@ public class AddressMessage implements JSONMessage<Address>{
     private Long id;
     private String street;
     private String additionalInfo;
+    private CityInfoMessage cityInfoMessage;
 
     public AddressMessage(Long id, String street, String additionalInfo) {
         this.id = id;
@@ -27,6 +28,7 @@ public class AddressMessage implements JSONMessage<Address>{
         this.id = a.getId();
         this.street = a.getStreet();
         this.additionalInfo = a.getAdditionalInfo();
+        this.cityInfoMessage = new CityInfoMessage(a.getCityInfo());
     }
 
     @Override

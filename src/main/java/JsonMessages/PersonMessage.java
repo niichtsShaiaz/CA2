@@ -6,7 +6,11 @@
 package JsonMessages;
 
 import Entities.Address;
+import Entities.Hobby;
 import Entities.Person;
+import Entities.Phone;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +22,8 @@ public class PersonMessage implements JSONMessage<Person>{
     private String lName;
     private String email;
     private AddressMessage address;
+    private List<PhoneMessage> phoneNumbers;
+    private List<Hobby> hobbys;
 
     public PersonMessage(long id, String fName, String lName, String email) {
         this.id = id;
@@ -32,7 +38,12 @@ public class PersonMessage implements JSONMessage<Person>{
         this.fName = p.getfName();
         this.lName = p.getlName();
         this.email = p.getEmail();
+        this.phoneNumbers = new ArrayList<PhoneMessage>();
         this.address = new AddressMessage(p.getAddress());
+        for(int i = 0; i < p.getPhones().size(); i++){
+            this.phoneNumbers.add(new PhoneMessage(p.getPhones().get(i)));
+        }
+        this.hobbys = p.getHobbys();
     }
 
     @Override

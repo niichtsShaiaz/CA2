@@ -42,11 +42,22 @@ public class Phone implements Serializable {
         return description;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
+    
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Phone(Long number, String description) {
+    public Phone(Long id, Long number, String description) {
+        this.id = id;
         this.number = number;
         this.description = description;
     }

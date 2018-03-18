@@ -62,8 +62,9 @@ public class PersonResource
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonCompleteId(@PathParam("id") int id)
     {
-        //need validation
-        String person = gson.toJson(facade.getPersonById(id));
+        Person p = facade.getPersonById(id);
+        PersonMessage pm = new PersonMessage(p);
+        String person = gson.toJson(pm);
         return person;
     }
     
