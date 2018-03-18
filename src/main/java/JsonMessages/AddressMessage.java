@@ -34,6 +34,7 @@ public class AddressMessage implements JSONMessage<Address>{
     @Override
     public Address toInternal() {
         Address address = new Address(street, additionalInfo);
+        address.setCityInfo(cityInfoMessage.toInternal());
         return address;
     }
     

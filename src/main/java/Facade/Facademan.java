@@ -7,8 +7,10 @@ package Facade;
 
 import Entities.Address;
 import Entities.CityInfo;
+import Entities.Hobby;
 import Entities.Person;
 import Entities.Phone;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -48,7 +50,14 @@ public class Facademan {
     {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        em.persist(person.getAddress());
         em.persist(person);
+        for(Phone phone : person.getPhones()){
+            em.persist(phone);
+        }
+        for(Hobby hobby : person.getHobbys()){
+            em.persist(hobby);
+        }
         em.getTransaction().commit();
     }
     
@@ -105,8 +114,22 @@ public class Facademan {
     
     public static void main(String[] args) {
         Facademan face = new Facademan();
-        List<Person> list = face.getPersonsByHobby("Fodbold");
-        System.out.println(list.get(0).getfName());
+        Person person = new Person("Jonatan", "Bakke");
+        Address address = new Address("Nørgaardsvej 22", "2.tv");
+        
+        Phone phone = new Phone(23242360L, "mobil");
+        phone.setPerson(person);
+        List<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+        address.setCityInfo(new CityInfo(2800, "Lyngby"));
+        person.setPhones(phoneList);
+        person.setAddress(address);
+        Hobby hobby = new Hobby("Gaming", "WOW");
+        List<Hobby> hobbys = new ArrayList<Hobby>();
+        hobbys.add(hobby);
+        person.setHobbys(hobbys);
+        face.createPerson(person);
+        System.out.println("Done");
     }
     
 }

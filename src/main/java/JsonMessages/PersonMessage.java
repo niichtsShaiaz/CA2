@@ -53,7 +53,23 @@ public class PersonMessage implements JSONMessage<Person>{
     @Override
     public Person toInternal() {
         Person person = new Person(fName, lName);
-        person.setAddress(address.toInternal());
+        person.setEmail(this.email);
+        Address address = this.address.toInternal();
+        
+        person.setAddress(address);
+        List<Phone> phonesList = new ArrayList<>();
+        for(PhoneMessage phoneMessage : this.phoneNumbers){
+            Phone phone = phoneMessage.toInternal();
+            phone.setPerson(person);
+            phonesList.add(phone);
+        }
+        List<Hobby> hobbyList = new ArrayList<>();
+        for(HobbyMessage hobbyMessage : hobbys){
+            Hobby hobby = hobbyMessage.toInternal();
+            hobbyList.add(hobby);
+        }
+        person.setPhones(phonesList);
+        person.getHobbys();
         person.setId(id);
         return person;
     }

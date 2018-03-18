@@ -96,7 +96,8 @@ public class PersonResource
     public void createPerson(String message)
     {
         // need validation
-        Person person = gson.fromJson(message, Person.class);
+        PersonMessage personMessage = gson.fromJson(message, PersonMessage.class);
+        Person person = personMessage.toInternal();
         facade.createPerson(person);
     }
     
