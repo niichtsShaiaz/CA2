@@ -30,6 +30,15 @@ public class CityInfo implements Serializable {
     @OneToMany(mappedBy = "cityInfo")
     private List<Address> addresses;
 
+    public long getZip() {
+        return zip;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    
     public long getZipCode() {
         return zip;
     }

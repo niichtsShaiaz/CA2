@@ -5,8 +5,11 @@
  */
 package Facade;
 
+import Entities.Address;
 import Entities.CityInfo;
 import Entities.Person;
+import Entities.Phone;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -68,4 +71,42 @@ public class Facademan {
         Person person = (Person)q.getSingleResult();
         return person;
     }
+    
+    public Person getPersonByPhone(int phoneNumber)
+    {
+        Person person = null;
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT p FROM Phone p WHERE p.number = :phoneNumber");
+        q.setParameter("phoneNumber", phoneNumber);
+        Phone phone  = (Phone)q.getSingleResult();
+        person = phone.getPerson();
+        return person;
+    }
+    
+    public List<Person> getPersonsByHobby(String hobby)
+    {
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT p FROM Person p, Hobby h WHERE h.name = :hobby and p.hobbys = h");
+        q.setParameter("hobby", hobby);
+        List<Person> personList = (List<Person>)q.getResultList();
+        return personList;
+    }
+    
+    
+    
+    public List<Person> getAllPersonsInCity(int zip){
+        EntityManager em = emf.createEntityManager();
+        Query q = em.createQuery("SELECT p FROM Person p, CityInfo c WHERE c.zip = :zip and c.addresses = p.address");
+        q.setParameter("zip", zip);
+        List<Person> personList = (List<Person>)q.getResultList();
+        return personList;
+    }
+    
+    
+    public static void main(String[] args) {
+        Facademan face = new Facademan();
+        List<Person> list = face.getPersonsByHobby("Fodbold");
+        System.out.println(list.get(0).getfName());
+    }
+    
 }

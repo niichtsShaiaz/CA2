@@ -56,8 +56,8 @@ public class Phone implements Serializable {
         this.description = description;
     }
 
-    public Phone(Long id, Long number, String description) {
-        this.id = id;
+    public Phone(Long number, String description) {
+        //this.id = id;
         this.number = number;
         this.description = description;
     }

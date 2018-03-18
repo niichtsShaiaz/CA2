@@ -12,14 +12,14 @@ import Entities.Phone;
  * @author Jbakke
  */
 class PhoneMessage implements JSONMessage<Phone>{
-    private Long id;
+    //private Long id;
     private Long number;
     private String description; 
     
     //private long personId;
 
     public PhoneMessage(Phone p){
-        this.id = p.getId();
+        //this.id = p.getId();
         this.number = p.getNumber();
         this.description = p.getDescription();
         //this.personId = p.getPerson().getId();
@@ -27,7 +27,7 @@ class PhoneMessage implements JSONMessage<Phone>{
     
     @Override
     public Phone toInternal() {
-        Phone phone = new Phone(id, number, description);
+        Phone phone = new Phone(number, description);
         return phone;
     }
     

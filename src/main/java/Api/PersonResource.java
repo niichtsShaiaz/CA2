@@ -7,6 +7,7 @@ package Api;
 
 import Entities.Person;
 import Facade.Facademan;
+import JsonMessages.ContactInfo;
 import JsonMessages.PersonMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -84,7 +85,9 @@ public class PersonResource
     public String getContactinfoId(@PathParam("id") int id)
     {
         //need validation
-        String person = gson.toJson(facade.getAllPersonsContactInfoById(id));
+        Person p = facade.getPersonById(id);
+        ContactInfo CI = new ContactInfo(p);
+        String person = gson.toJson(CI);
         return person;
     }
     
@@ -97,8 +100,26 @@ public class PersonResource
         facade.createPerson(person);
     }
     
+    @Path("/phone/{number}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonByPhone(@PathParam("number") int number){
+        
+        Person person = facade.getPersonByPhone(number);
+        PersonMessage pm = new PersonMessage(person);
+        return gson.toJson(pm);
+    }
     
-    
-    
+    @Path("/hobby/{hobby}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonByHobby(@PathParam("hobby") String hobby){
+        List<PersonMessage> pmList = new ArrayList<>();
+        List<Person> personList = facade.getPersonsByHobby(hobby);
+        for(Person p : personList){
+            pmList.add(new PersonMessage(p));
+        }
+        return gson.toJson(pmList);
+    }
     
 }

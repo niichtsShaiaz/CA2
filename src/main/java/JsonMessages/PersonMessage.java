@@ -23,7 +23,7 @@ public class PersonMessage implements JSONMessage<Person>{
     private String email;
     private AddressMessage address;
     private List<PhoneMessage> phoneNumbers;
-    private List<Hobby> hobbys;
+    private List<HobbyMessage> hobbys;
 
     public PersonMessage(long id, String fName, String lName, String email) {
         this.id = id;
@@ -43,7 +43,11 @@ public class PersonMessage implements JSONMessage<Person>{
         for(int i = 0; i < p.getPhones().size(); i++){
             this.phoneNumbers.add(new PhoneMessage(p.getPhones().get(i)));
         }
-        this.hobbys = p.getHobbys();
+        this.hobbys = new ArrayList<HobbyMessage>();
+        for(Hobby hobby : p.getHobbys()){
+            this.hobbys.add(new HobbyMessage(hobby));
+        }
+        
     }
 
     @Override
